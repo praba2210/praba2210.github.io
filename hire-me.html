@@ -21,7 +21,7 @@
 <body>
     <nav class="navbar navbar-dark navbar-expand-lg fixed-top bg-white portfolio-navbar gradient">
         <div class="container"><button data-toggle="collapse" class="navbar-toggler" data-target="#navbarNav"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
-            <div class="collapse navbar-collapse" id="navbarNav" style="margin: -26px;width: 1171px;margin-right: 0px;margin-left: 0px;"><img class="img-fluid border rounded-circle border-dark shadow" src="assets/img/mypic.jpg" style="width: 80px;height: 80px;padding: 0px;margin: 13px;"><a class="navbar-brand logo" href="#" style="margin: 6px;">Prabakaran A</a>
+            <div class="collapse navbar-collapse" id="navbarNav" style="margin: -26px;width: 1171px;margin-right: 0px;margin-left: 0px;"><img class="img-fluid border rounded-circle border-dark shadow" id="headerimg" src="assets/img/mypic.jpg" style="width: 80px;height: 80px;padding: 0px;margin: 13px;"><a class="navbar-brand logo" href="#" style="margin: 6px;margin-top:23px">Prabakaran A</a>
                 <ul class="nav navbar-nav ml-auto">
                     <li class="nav-item" role="presentation"><a class="nav-link" href="index.html">Home</a></li>
                     <li class="nav-item" role="presentation"><a class="nav-link" href="#">Recent Works</a></li>
@@ -61,6 +61,21 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pikaday/1.6.1/pikaday.min.js"></script>
     <script src="assets/js/theme.js"></script>
+    <style>
+        @media only screen and (max-width: 800px) {
+            #headerimg{
+                display: none;
+            }
+            #navbarNav{
+                height:250px;
+            }
+            /* #headertxt{
+            padding-top:5px;
+        } */
+
+        }
+       
+    </style>
 </body>
 
 </html>
