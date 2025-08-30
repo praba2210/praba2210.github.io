@@ -1,10 +1,18 @@
 
 "use client";
 import React from "react";
+import Script from "next/script";
 import { motion } from "framer-motion";
 import { ArrowRight, Github, Linkedin, Mail, FileDown, MapPin, Briefcase, Code2, Cpu, Database, Star, Send, ExternalLink, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { site } from "@/data/site";
+import { nav as navItems } from "@/data/nav";
+import { experience as expItems } from "@/data/experience";
+import { projects as projectItems } from "@/data/projects";
+import { skills as skillGroups } from "@/data/skills";
+import { education as schoolItems } from "@/data/education";
+import { activities as activityItems } from "@/data/activities";
 
 // Simple fade-up animation helper
 const fadeUp = {
@@ -17,6 +25,41 @@ const fadeUp = {
 export default function Portfolio() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-zinc-950 via-zinc-900 to-zinc-950 text-zinc-100 antialiased">
+      {/* JSON-LD: Person */}
+      <Script id="ld-person" type="application/ld+json">
+        {JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Person",
+          name: "Prabakaran Annadurai",
+          url: site.url + "/",
+          sameAs: [
+            site.github,
+            site.linkedin
+          ],
+          jobTitle: "Software Developer",
+          worksFor: {
+            "@type": "Organization",
+            name: "Arizona State University"
+          }
+        })}
+      </Script>
+      {/* JSON-LD: Website */}
+      <Script id="ld-website" type="application/ld+json">
+        {JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "WebSite",
+          name: site.name,
+          url: site.url + "/",
+          potentialAction: {
+            "@type": "SearchAction",
+            target: {
+              "@type": "EntryPoint",
+              urlTemplate: `${site.url}/?q={search_term_string}`
+            },
+            queryInput: "required name=search_term_string"
+          }
+        })}
+      </Script>
       <Header />
       <main className="mx-auto max-w-7xl px-6 sm:px-8">
         <Hero />
@@ -34,35 +77,26 @@ export default function Portfolio() {
 }
 
 function Header() {
-  const nav = [
-    { href: "#about", label: "About" },
-    { href: "#experience", label: "Experience" },
-    { href: "#projects", label: "Projects" },
-    { href: "#skills", label: "Skills" },
-    { href: "#education", label: "Education" },
-    { href: "#activities", label: "Activities" },
-    { href: "#contact", label: "Contact" },
-  ];
   return (
     <header className="sticky top-0 z-40 border-b border-white/10 backdrop-blur bg-zinc-950/60">
       <div className="mx-auto max-w-7xl px-6 sm:px-8">
         <div className="flex h-16 items-center justify-between">
           <a href="#top" className="font-semibold tracking-tight">
-            <span className="text-zinc-100">praba</span>
-            <span className="text-indigo-400">2210.dev</span>
+            <span className="text-zinc-100">{site.name.split(".")[0]}</span>
+            <span className="text-indigo-400">.{site.name.split(".")[1]}</span>
           </a>
           <nav className="hidden gap-6 md:flex">
-            {nav.map((n) => (
+            {navItems.map((n) => (
               <a key={n.href} href={n.href} className="text-sm text-zinc-300 hover:text-white transition">
                 {n.label}
               </a>
             ))}
           </nav>
           <div className="flex items-center gap-2">
-            <Button as="a" href="https://www.linkedin.com/in/praba2210" target="_blank" rel="noreferrer" variant="secondary" className="hidden sm:inline-flex">
+            <Button as="a" href={site.linkedin} target="_blank" rel="noreferrer" variant="secondary" className="hidden sm:inline-flex">
               <Linkedin className="mr-2 h-4 w-4" /> LinkedIn
             </Button>
-            <Button as="a" href="https://github.com/praba2210" target="_blank" rel="noreferrer" variant="outline">
+            <Button as="a" href={site.github} target="_blank" rel="noreferrer" variant="outline">
               <Github className="mr-2 h-4 w-4" /> GitHub
             </Button>
           </div>
@@ -77,7 +111,7 @@ function Hero() {
     <section id="top" className="relative py-20 sm:py-28">
       <motion.div {...fadeUp} className="mx-auto max-w-4xl text-center">
         <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-zinc-300">
-          <MapPin className="h-3.5 w-3.5" /> Tempe, AZ • Open to SDE roles (Dec 2025 graduate)
+          <MapPin className="h-3.5 w-3.5" /> {site.location}
         </div>
         <h1 className="text-4xl font-bold tracking-tight sm:text-6xl">
           Hi, I&apos;m <span className="text-indigo-400">Prabakaran Annadurai</span>
@@ -91,13 +125,13 @@ function Hero() {
           <Button as="a" href="#projects" className="rounded-2xl">
             View Projects <ArrowRight className="ml-2 h-4 w-4" />
           </Button>
-          <Button as="a" href="mailto:pannadur@asu.edu" variant="secondary" className="rounded-2xl">
+          <Button as="a" href={`mailto:${site.email}`} variant="secondary" className="rounded-2xl">
             <Mail className="mr-2 h-4 w-4" /> Contact Me
           </Button>
-          <Button as="a" href="https://github.com/praba2210/" target="_blank" rel="noreferrer" variant="outline" className="rounded-2xl">
+          <Button as="a" href={site.github + "/"} target="_blank" rel="noreferrer" variant="outline" className="rounded-2xl">
             <Github className="mr-2 h-4 w-4" /> Code
           </Button>
-          <Button as="a" href="https://www.linkedin.com/in/praba2210/" target="_blank" rel="noreferrer" variant="outline" className="rounded-2xl">
+          <Button as="a" href={site.linkedin} target="_blank" rel="noreferrer" variant="outline" className="rounded-2xl">
             <Linkedin className="mr-2 h-4 w-4" /> Connect
           </Button>
           <Button as="a" href="#resume" variant="ghost" className="rounded-2xl">
@@ -132,39 +166,11 @@ function About() {
 }
 
 function Experience() {
-  const items = [
-    {
-      role: "Software Engineer Intern",
-      org: "Amazon (Neptune)",
-      time: "May 2025 – Aug 2025",
-      bullets: [
-        "Engineered enhancements enabling zero‑downtime engine upgrades & data migrations.",
-        "Optimized multi‑AZ replication, improving efficiency by ~40%.",
-        "Built automation tools for upgrade and recovery workflows using Java & AWS services.",
-      ],
-      icon: <Briefcase className="h-5 w-5" />,
-    },
-    {
-      role: "Software Developer (Freelance)",
-      org: "Various",
-      time: "Dec 2022 – Nov 2023",
-      bullets: [
-        "Talent acquisition platform with React, WebRTC, AWS → recruiter efficiency +30%.",
-        "Event platform migration Vue → Next.js → performance +60%, real‑time tracking.",
-        "Gamified learning POC with React & Canvas for interactive kids' games.",
-      ],
-      icon: <Code2 className="h-5 w-5" />,
-    },
-    {
-      role: "Software Developer",
-      org: "Rejola IT Services",
-      time: "Apr 2022 – Dec 2022",
-      bullets: [
-        "Built two React Native apps for learning & instructor content; real‑time streaming support.",
-      ],
-      icon: <Cpu className="h-5 w-5" />,
-    },
-  ];
+  const iconMap: Record<string, React.ReactNode> = {
+    briefcase: <Briefcase className="h-5 w-5" />,
+    code: <Code2 className="h-5 w-5" />,
+    cpu: <Cpu className="h-5 w-5" />,
+  };
 
   return (
     <section id="experience" className="py-16">
@@ -174,11 +180,11 @@ function Experience() {
           <p className="mt-2 text-sm text-zinc-400">Impact and ownership</p>
         </div>
         <div className="md:col-span-2 grid gap-6">
-          {items.map((item, idx) => (
+    {expItems.map((item, idx) => (
             <Card key={idx} className="bg-white/5 border-white/10">
               <CardHeader className="flex flex-row items-center justify-between">
                 <CardTitle className="flex items-center gap-2 text-lg">
-                  <span className="text-indigo-400">{item.icon}</span>
+      <span className="text-indigo-400">{iconMap[item.icon]}</span>
                   {item.role} • <span className="font-normal text-zinc-300">{item.org}</span>
                 </CardTitle>
                 <span className="text-sm text-zinc-400">{item.time}</span>
@@ -199,35 +205,7 @@ function Experience() {
 }
 
 function Projects() {
-  const projects = [
-    {
-      title: "Zero‑Downtime Upgrades Toolkit",
-      tag: "Backend • AWS • Java",
-      desc:
-        "Automation utilities to orchestrate Neptune engine upgrades and failovers with no customer impact.",
-      links: [
-        { href: "#", label: "Case Study" },
-      ],
-    },
-    {
-      title: "Talent Acquisition Platform",
-      tag: "React • WebRTC • AWS",
-      desc:
-        "Live interviews, screening workflows, and media storage; boosted recruiter throughput by ~30%.",
-      links: [
-        { href: "#", label: "Overview" },
-      ],
-    },
-    {
-      title: "Event Platform Migration (Vue → Next.js)",
-      tag: "Frontend • Next.js • DX",
-      desc:
-        "Rebuilt storefront with SEO & performance focus; +60% perf, real‑time analytics.",
-      links: [
-        { href: "#", label: "Notes" },
-      ],
-    },
-  ];
+  const projects = projectItems;
 
   return (
     <section id="projects" className="py-16">
@@ -263,27 +241,13 @@ function Projects() {
 }
 
 function Skills() {
-  const groups = [
-    {
-      title: "Languages & Frameworks",
-      items: [
-        "JavaScript/TypeScript", "Python", "Java", "React/Next.js", "React Native", "Node.js", "Flask",
-      ],
-      icon: <Code2 className="h-5 w-5" />,
-    },
-    {
-      title: "Cloud & Data",
-      items: [
-        "AWS (EC2, S3, Neptune)", "MongoDB", "SQL", "GraphQL", "Distributed Systems", "Graph DBs",
-      ],
-      icon: <Database className="h-5 w-5" />,
-    },
-    {
-      title: "Practices",
-      items: ["Agile", "Testing", "Observability", "Performance", "Documentation"],
-      icon: <Star className="h-5 w-5" />,
-    },
-  ];
+  const iconMap: Record<string, React.ReactNode> = {
+    code: <Code2 className="h-5 w-5" />,
+    database: <Database className="h-5 w-5" />,
+    cpu: <Cpu className="h-5 w-5" />,
+    star: <Star className="h-5 w-5" />,
+  };
+  const groups = skillGroups;
 
   return (
     <section id="skills" className="py-16">
@@ -296,7 +260,7 @@ function Skills() {
           {groups.map((g, i) => (
             <Card key={i} className="bg-white/5 border-white/10">
               <CardHeader className="flex flex-row items-center gap-2">
-                <span className="text-indigo-400">{g.icon}</span>
+                <span className="text-indigo-400">{iconMap[g.icon as keyof typeof iconMap]}</span>
                 <CardTitle className="text-base">{g.title}</CardTitle>
               </CardHeader>
               <CardContent className="text-sm text-zinc-300">
@@ -315,18 +279,7 @@ function Skills() {
 }
 
 function Education() {
-  const schools = [
-    {
-      name: "Arizona State University",
-      degree: "M.S. in Information Technology (GPA 3.93)",
-      time: "Dec 2025",
-    },
-    {
-      name: "SRM Valliammai Engineering College",
-      degree: "B.E. in Computer Science and Engineering",
-      time: "Apr 2021",
-    },
-  ];
+  const schools = schoolItems;
   return (
     <section id="education" className="py-16">
       <motion.div {...fadeUp} className="grid gap-8 md:grid-cols-3">
@@ -355,18 +308,7 @@ function Education() {
 }
 
 function Activities() {
-  const acts = [
-    {
-      title: "Technical Officer – CV/NLP",
-      org: "The AI Society Club, ASU",
-      desc: "Mentored 200+ students; implemented Word2Vec, GloVe, Transformers in workshops.",
-    },
-    {
-      title: "Volunteer Research Assistant",
-      org: "Systems Psychology Lab, ASU",
-      desc: "Coordinated 10+ experiments with 100+ participants; ensured 99% data accuracy.",
-    },
-  ];
+  const acts = activityItems;
   return (
     <section id="activities" className="py-16">
       <motion.div {...fadeUp} className="grid gap-8 md:grid-cols-3">
@@ -417,16 +359,21 @@ function Contact() {
                   <textarea rows={4} className="w-full rounded-xl bg-zinc-800/60 px-3 py-2 text-sm outline-none ring-1 ring-white/10 focus:ring-indigo-400" placeholder="What can we build together?" />
                 </div>
                 <div className="sm:col-span-2 flex items-center justify-between">
-                  <div className="text-sm text-zinc-400">Or email me directly: <a className="underline hover:text-white" href="mailto:pannadur@asu.edu">pannadur@asu.edu</a></div>
+                  <div className="text-sm text-zinc-400">Or email me directly: <a className="underline hover:text-white" href={`mailto:${site.email}`}>{site.email}</a></div>
                   <Button type="button">
                     <Send className="mr-2 h-4 w-4" /> Send
+                  </Button>
+                </div>
+                <div className="sm:col-span-2 flex items-center justify-end">
+      <Button as="a" href={site.calendly} target="_blank" rel="noreferrer" variant="outline">
+                    Book a call
                   </Button>
                 </div>
               </form>
             </CardContent>
           </Card>
           <div id="resume" className="mt-4 text-sm text-zinc-400">
-            Prefer a resume? <a className="underline hover:text-white" href="https://github.com/praba2210" target="_blank" rel="noreferrer">View code</a> • <a className="underline hover:text-white" href="https://www.linkedin.com/in/praba2210/" target="_blank" rel="noreferrer">LinkedIn</a>
+    Prefer a resume? <a className="underline hover:text-white" href={site.github} target="_blank" rel="noreferrer">View code</a> • <a className="underline hover:text-white" href={site.linkedin} target="_blank" rel="noreferrer">LinkedIn</a>
           </div>
         </div>
       </motion.div>
@@ -439,9 +386,9 @@ function Footer() {
     <footer className="border-t border-white/10 py-10 mt-10">
       <div className="mx-auto max-w-7xl px-6 sm:px-8 flex flex-col items-center gap-3 text-sm text-zinc-400">
         <div className="flex items-center gap-4">
-          <a href="mailto:pannadur@asu.edu" className="hover:text-white inline-flex items-center gap-1"><Mail className="h-4 w-4" /> Email</a>
-          <a href="https://github.com/praba2210" target="_blank" rel="noreferrer" className="hover:text-white inline-flex items-center gap-1"><Github className="h-4 w-4" /> GitHub</a>
-          <a href="https://www.linkedin.com/in/praba2210/" target="_blank" rel="noreferrer" className="hover:text-white inline-flex items-center gap-1"><Linkedin className="h-4 w-4" /> LinkedIn</a>
+          <a href={`mailto:${site.email}`} className="hover:text-white inline-flex items-center gap-1"><Mail className="h-4 w-4" /> Email</a>
+          <a href={site.github} target="_blank" rel="noreferrer" className="hover:text-white inline-flex items-center gap-1"><Github className="h-4 w-4" /> GitHub</a>
+          <a href={site.linkedin} target="_blank" rel="noreferrer" className="hover:text-white inline-flex items-center gap-1"><Linkedin className="h-4 w-4" /> LinkedIn</a>
         </div>
         <div>© {new Date().getFullYear()} Prabakaran Annadurai • Built with React + Tailwind</div>
       </div>
