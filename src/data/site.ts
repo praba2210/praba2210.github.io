@@ -1,7 +1,7 @@
 export const site = {
   name: "prabakaran.pro",
   url: "https://prabakaran.pro",
-  email: "pannadur@asu.edu",
+  email: "prabakaranaw@gmail.com",
   github: "https://github.com/praba2210",
   linkedin: "https://www.linkedin.com/in/praba2210/",
   calendly: "https://calendly.com/prabakaranaw/30min",

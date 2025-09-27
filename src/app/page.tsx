@@ -344,32 +344,38 @@ function Contact() {
         </div>
         <div className="md:col-span-2">
           <Card className="bg-white/5 border-white/10">
-            <CardContent className="pt-6 pb-6">
-              <form className="grid gap-4 sm:grid-cols-2">
-                <div className="sm:col-span-1">
-                  <label className="mb-1 block text-xs text-zinc-400">Name</label>
-                  <input className="w-full rounded-xl bg-zinc-800/60 px-3 py-2 text-sm outline-none ring-1 ring-white/10 focus:ring-indigo-400" placeholder="Your name" />
-                </div>
-                <div className="sm:col-span-1">
-                  <label className="mb-1 block text-xs text-zinc-400">Email</label>
-                  <input className="w-full rounded-xl bg-zinc-800/60 px-3 py-2 text-sm outline-none ring-1 ring-white/10 focus:ring-indigo-400" placeholder="you@example.com" />
-                </div>
-                <div className="sm:col-span-2">
-                  <label className="mb-1 block text-xs text-zinc-400">Message</label>
-                  <textarea rows={4} className="w-full rounded-xl bg-zinc-800/60 px-3 py-2 text-sm outline-none ring-1 ring-white/10 focus:ring-indigo-400" placeholder="What can we build together?" />
-                </div>
-                <div className="sm:col-span-2 flex items-center justify-between">
-                  <div className="text-sm text-zinc-400">Or email me directly: <a className="underline hover:text-white" href={`mailto:${site.email}`}>{site.email}</a></div>
-                  <Button type="button">
-                    <Send className="mr-2 h-4 w-4" /> Send
-                  </Button>
-                </div>
-                <div className="sm:col-span-2 flex items-center justify-end">
-      <Button as="a" href={site.calendly} target="_blank" rel="noreferrer" variant="outline">
-                    Book a call
-                  </Button>
-                </div>
-              </form>
+            <CardHeader>
+              <CardTitle className="text-base">Reach me via</CardTitle>
+            </CardHeader>
+            <CardContent className="grid gap-4 sm:grid-cols-2 pt-2">
+              <a href={`mailto:${site.email}`} className="group flex items-start gap-3 rounded-xl border border-white/10 bg-zinc-800/40 p-4 hover:border-indigo-400/50 transition">
+                <span className="mt-0.5 inline-flex h-9 w-9 items-center justify-center rounded-lg bg-indigo-500/10 text-indigo-300 group-hover:text-indigo-200 group-hover:bg-indigo-500/20"><Mail className="h-4 w-4" /></span>
+                <span className="text-sm leading-tight">
+                  <strong className="block font-medium text-zinc-100">Email</strong>
+                  <span className="text-zinc-400 group-hover:text-zinc-300 break-all">{site.email}</span>
+                </span>
+              </a>
+              <a href={site.linkedin} target="_blank" rel="noreferrer" className="group flex items-start gap-3 rounded-xl border border-white/10 bg-zinc-800/40 p-4 hover:border-indigo-400/50 transition">
+                <span className="mt-0.5 inline-flex h-9 w-9 items-center justify-center rounded-lg bg-indigo-500/10 text-indigo-300 group-hover:text-indigo-200 group-hover:bg-indigo-500/20"><Linkedin className="h-4 w-4" /></span>
+                <span className="text-sm leading-tight">
+                  <strong className="block font-medium text-zinc-100">LinkedIn</strong>
+                  <span className="text-zinc-400 group-hover:text-zinc-300">Lets Connect</span>
+                </span>
+              </a>
+              <a href={site.github} target="_blank" rel="noreferrer" className="group flex items-start gap-3 rounded-xl border border-white/10 bg-zinc-800/40 p-4 hover:border-indigo-400/50 transition">
+                <span className="mt-0.5 inline-flex h-9 w-9 items-center justify-center rounded-lg bg-indigo-500/10 text-indigo-300 group-hover:text-indigo-200 group-hover:bg-indigo-500/20"><Github className="h-4 w-4" /></span>
+                <span className="text-sm leading-tight">
+                  <strong className="block font-medium text-zinc-100">GitHub</strong>
+                  <span className="text-zinc-400 group-hover:text-zinc-300">View projects & code</span>
+                </span>
+              </a>
+              <a href={site.calendly} target="_blank" rel="noreferrer" className="group flex items-start gap-3 rounded-xl border border-white/10 bg-zinc-800/40 p-4 hover:border-indigo-400/50 transition">
+                <span className="mt-0.5 inline-flex h-9 w-9 items-center justify-center rounded-lg bg-indigo-500/10 text-indigo-300 group-hover:text-indigo-200 group-hover:bg-indigo-500/20"><Send className="h-4 w-4" /></span>
+                <span className="text-sm leading-tight">
+                  <strong className="block font-medium text-zinc-100">Book a Call</strong>
+                  <span className="text-zinc-400 group-hover:text-zinc-300">Schedule 1:1 via Calendly</span>
+                </span>
+              </a>
             </CardContent>
           </Card>
           <div id="resume" className="mt-4 text-sm text-zinc-400">
